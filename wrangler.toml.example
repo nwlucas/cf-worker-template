@@ -1,0 +1,23 @@
+name = "cf-worker-template"
+compatibility_date = "2022-02-02"
+main = "dist/index.mjs"
+workers_dev = false
+kv_namespaces = [
+  { binding = "SOMEKV", id = "123456789", preview_id = "123456789" }
+]
+
+[build]
+command = "npm run build"
+
+[env.dev]
+name = "cf-worker-template"
+workers_dev = true
+kv_namespaces = [
+  { binding = "SOMEDEVKV", id = "123456789", preview_id = "123456789" }
+]
+
+# The below is used if you used miniflare directly but with wrangler 2 integrating miniflare there isn't much of a need for it.
+[miniflare]
+watch  = true
+live_reload = true
+kv_persist = true

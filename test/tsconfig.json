@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "paths": {
+    "@@/*": ["./__tests__/*"],
+  },
+  "compilerOptions": {
+    "types": [
+      "@cloudflare/workers-types",
+      "@types/node",
+      "jest",
+      "../src/types/env"
+    ]
+  },
+  "include": ["../src/**/*", "**/*"]
+}
