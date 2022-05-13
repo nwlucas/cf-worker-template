@@ -1,16 +1,26 @@
 import { AppEnv, AppRequest } from '@/types/env';
-import { error, ThrowableRouter, withContent, withParams } from 'itty-router-extras';
+import { error, ThrowableRouter } from 'itty-router-extras';
 
 const router = ThrowableRouter();
 
 router
-  .get('/ingress/:prefix?', withParams, (req: AppRequest, env: AppEnv) => )
-  .get('/slc/:hostname?', withParams, (req: AppRequest, env: AppEnv) => parseCertificate(req, env))
-  .post('/cloud-init', withContent, (req: AppRequest, env: AppEnv) => parseCertificate(req, env))
+  .get('/someroute', (req: AppRequest, _env: AppEnv, _ctx: ExecutionContext) => {
+    return new Response(JSON.stringify(req), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  })
   .all('*', () => {
     return error(500, 'Bad request');
   });
 
-export default {
-  fetch: router.handle,
+const worker: ExportedHandler<AppEnv> = {
+  fetch: (...args) =>
+    router.handle(...args).then((response) => {
+      return response;
+    }),
 };
+
+export default worker;

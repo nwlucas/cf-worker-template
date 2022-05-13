@@ -4,8 +4,9 @@
   "description": "CF Worker template repo using Typescript and ESM build.",
   "main": "dist/index.mjs",
   "scripts": {
-    "dev": "wrangler dev",
-    "dev:local": "wrangler dev --local",
+    "dev": "wrangler dev --env dev",
+    "dev:local": "wrangler dev --local --env dev",
+    "publish": "wrangler publish",
     "build": "rollup -c",
     "test": "jest",
     "test:cov": "jest --coverage",
